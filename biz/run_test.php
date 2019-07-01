@@ -50,7 +50,7 @@ function run_test($test, $context) {
 	}
 
 	if (!$context["no_newline"]) {
-		\fwrite($stdout_handle, "\n");
+		safe\fwrite($stdout_handle, "\n");
 	}
 
 	\fclose($stdout_handle);

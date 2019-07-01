@@ -7,7 +7,7 @@ function get_php_version($binary) {
 	$version = @\exec($command." 2>&1", $_, $exit_code);
 
 	if ($exit_code !== 0) {
-		return "php -r return exited with code $exit_code.";
+		return "php -r 'echo phpversion();' exited with code $exit_code.";
 	}
 
 	return [$version];

@@ -42,3 +42,12 @@ punit [options] -- <files>
 --use-php-ini <path>
 	Use php ini located at <path>.
 ```
+
+## running example test
+
+```
+$ ./punit -- ./test
+Using PHP version: 7.2.19
+[pass] This is an example test.                                                            34 ms
+Ran 1 tests in 0.04 seconds
+```

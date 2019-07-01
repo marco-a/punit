@@ -49,6 +49,10 @@ function run_test($test, $context) {
 		++$n_ticks;
 	}
 
+	if (!$context["no_newline"]) {
+		\fwrite($stdout_handle, "\n");
+	}
+
 	\fclose($stdout_handle);
 	\fclose($stderr_handle);
 	\proc_close($proc);

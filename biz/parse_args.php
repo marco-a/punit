@@ -10,7 +10,8 @@ function parse_args($argv) {
 		"use_php_bin" => `which php`,
 		"use_php_ini" => "",
 		"report_format" => "oneline",
-		"continue" => false
+		"continue" => false,
+		"no_newline" => false
 	];
 
 	$files = [];
@@ -54,6 +55,10 @@ function parse_args($argv) {
 
 				case "--continue":
 					$context["continue"] = true;
+				break;
+
+				case "--no-newline":
+					$context["no_newline"] = true;
 				break;
 
 				case "--":

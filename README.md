@@ -26,6 +26,9 @@ punit [options] -- <files>
 --continue
 	Continue if a test failed.
 
+--no-newline
+	Do not add a line to the unit test's output.
+
 --report-format <format>
 	Specify output format:
 		- oneline

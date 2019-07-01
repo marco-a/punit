@@ -13,7 +13,8 @@ return (function() {
 		$result = run_test($test, [
 			"use_php_bin" => $context["use_php_bin"],
 			"use_php_ini" => $context["use_php_ini"],
-			"max_execution_time" => $context["max_execution_time"]
+			"max_execution_time" => $context["max_execution_time"],
+			"no_newline" => $context["no_newline"]
 		]);
 
 		print_test_result($test, $result, $context["report_format"]);

@@ -57,7 +57,7 @@ return (function() {
 			$file = safe\realpath($file);
 
 			if (\is_dir($file)) {
-				discover_tests(__DIR__, $fn_handle_test);
+				discover_tests($file, $fn_handle_test);
 			} else {
 				$fp = safe\fopen($file, "rb");
 

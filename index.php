@@ -14,10 +14,12 @@ if (!\sizeof($argv)) {
 	Limit execution time to <milliseconds>.
 	Needs to be a multiple of 10 milliseconds.
 	0 means unlimited.
+	Default is unlimited.
 
 --max-memory-usage <value>
 	Sets memory limit for each test to <value>.
 	Note: uses ini setting `memory_limit'.
+	Default is php's own memory limit.
 
 --continue
 	Continue if a test failed.
@@ -31,9 +33,11 @@ if (!\sizeof($argv)) {
 
 --use-php-binary <path>
 	Use php binary located at <path>.
+	Default is result of `which php'.
 
 --use-php-ini <path>
 	Use php ini located at <path>.
+	Default is none.
 ");
 
 	exit(2);

@@ -4,7 +4,7 @@ namespace punit\tool;
 use punit\safe as safe;
 
 function locate_php_binary() {
-	$path = @\exec("which php", $_, $exit_code);
+	$path = @\exec("which php 2>&1", $_, $exit_code);
 
 	if ($exit_code !== 0) {
 		return "which php exited with code $exit_code.";

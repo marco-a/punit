@@ -47,4 +47,29 @@ if (\is_string($args)) {
 }
 
 $main = require __DIR__."/main.php";
+
+# locate php binary
+if ($args["context"]["use_php_bin"] === NULL) {
+	$default_php_binary = punit\tool\locate_php_binary();
+
+	if (!\is_array($default_php_binary)) {
+		\fwrite(\STDERR, "Failed to locate php binary: $default_php_binary\n");
+		exit(1);
+	}
+
+	$args["context"]["use_php_bin"] = $default_php_binary[0];
+}
+
+# print php version
+{
+	$php_version = punit\tool\get_php_version($args["context"]["use_php_bin"]);
+
+	if (!\is_array($php_version)) {
+		\fwrite(\STDERR, "Failed to get php version: $php_version\n");
+		exit(1);
+	}
+
+	\fwrite(\STDERR, "Using PHP version: ".$php_version[0]."\n");
+}
+
 $main($args["files"], $args["context"]);

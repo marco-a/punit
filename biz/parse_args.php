@@ -7,7 +7,7 @@ function parse_args($argv) {
 		"bootstrap" => NULL,
 		"max_memory_usage" => NULL,
 		"max_execution_time" => 0,
-		"use_php_bin" => `which php`,
+		"use_php_bin" => NULL,
 		"use_php_ini" => "",
 		"report_format" => "oneline",
 		"continue" => false,

@@ -10,7 +10,7 @@ return (function() {
 		$context,
 		&$statistics
 	) {
-		$test = read_test($path, $handle);
+		$test = read_test($path, $test_options, $handle);
 		$test = inject_into_test($test, [
 			"max_memory_usage" => $context["max_memory_usage"],
 			"bootstrap" => $context["bootstrap"]

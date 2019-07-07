@@ -2,7 +2,7 @@
 
 namespace punit;
 
-function read_test($path, $handle) {
+function read_test($path, $test_options, $handle) {
 	// save position
 	$position = safe\ftell($handle);
 	// read description
@@ -41,12 +41,16 @@ function read_test($path, $handle) {
 	\fclose($code_handle);
 
 	// copy expected output
-	while (true) {
-		$bytes = \fread($handle, 4096);
+	while (($line = \fgets($handle)) !== false) {
+		// ignore lines starting with `#'
+		// if $test_options->comments is set.
+		if (\property_exists($test_options, "comments")) {
+			if (\substr($line, 0, 1) === "#") {
+				continue;
+			}
+		}
 
-		if (!\strlen($bytes)) break;
-
-		safe\fwrite($eout_handle, $bytes);
+		safe\fwrite($eout_handle, $line);
 	}
 
 	\fclose($eout_handle);

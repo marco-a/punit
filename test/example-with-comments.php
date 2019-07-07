@@ -1,5 +1,5 @@
 punit,comments
-This is an example test.
+This is an example test with comments.
 <?php
 
 echo "Hello, World";

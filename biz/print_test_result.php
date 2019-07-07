@@ -16,6 +16,17 @@ function print_test_result($test, $result, $context) {
 	$description = \str_pad($description, 80, " ", \STR_PAD_RIGHT);
 
 	if ($result === "SKIPPED") {
+		if ($context["report_format"] === "json") {
+			echo \json_encode([
+				"result" => "skip",
+				"description" => $test["description"],
+				"duration" => 0
+			]);
+			echo "\n";
+
+			return;
+		}
+
 		$label = "\033[0;33m[skip]";
 
 		echo "$label\033[0m $description\n";
@@ -34,14 +45,14 @@ function print_test_result($test, $result, $context) {
 		echo "$label\033[0m $description $duration\n";
 	} else {
 		echo \json_encode([
-			"result" => $pass,
+			"result" => $pass ? "pass" : "fail",
 			"description" => $test["description"],
 			"duration" => $result["duration"]
 		]);
 		echo "\n";
 	}
 
-	if (!$pass && !$context["no_diff"]) {
+	if (!$pass && !$context["no_diff"] && $context["report_format"] !== "json") {
 		$a = $test["expected_output"];
 		$b = $result["stdout"];
 

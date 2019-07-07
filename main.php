@@ -3,7 +3,13 @@
 namespace punit;
 
 return (function() {
-	$fn_run_test = function($handle, $path, $context, &$statistics) {
+	$fn_run_test = function(
+		$handle,
+		$test_options,
+		$path,
+		$context,
+		&$statistics
+	) {
 		$test = read_test($path, $handle);
 		$test = inject_into_test($test, [
 			"max_memory_usage" => $context["max_memory_usage"],
@@ -41,12 +47,18 @@ return (function() {
 			]
 		];
 
-		$fn_handle_test = function($handle, $path) use(
+		$fn_handle_test = function($handle, $test_options, $path) use(
 			$fn_run_test,
 			$context,
 			&$statistics
 		) {
-			$stop = $fn_run_test($handle, $path, $context, $statistics);
+			$stop = $fn_run_test(
+				$handle,
+				$test_options,
+				$path,
+				$context,
+				$statistics
+			);
 
 			if ($stop) {
 				print_statistics($statistics, $context["report_format"]);
@@ -60,13 +72,13 @@ return (function() {
 			if (\is_dir($file)) {
 				discover_tests($file, $fn_handle_test);
 			} else {
-				$fp = safe\fopen($file, "rb");
+				$tmp = read_test_meta($file);
 
-				if (\trim(\fgets($fp)) === "punit") {
-					$fn_handle_test($fp, $file);
+				if (\is_array($tmp)) {
+					list($handle, $test_options) = $tmp;
+					$fn_handle_test($handle, $test_options, $file);
+					\fclose($handle);
 				}
-
-				\fclose($fp);
 			}
 		}
 

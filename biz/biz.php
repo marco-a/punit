@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__."/read_test_meta.php";
 require_once __DIR__."/discover_tests.php";
 require_once __DIR__."/read_test.php";
 require_once __DIR__."/inject_into_test.php";

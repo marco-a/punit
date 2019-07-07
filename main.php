@@ -16,24 +16,36 @@ return (function() {
 			"bootstrap" => $context["bootstrap"]
 		]);
 
-		$result = run_test($test, [
-			"use_php_bin" => $context["use_php_bin"],
-			"use_php_ini" => $context["use_php_ini"],
-			"max_execution_time" => $context["max_execution_time"],
-			"no_newline" => $context["no_newline"]
-		]);
+		// only run the test if "skip" was not
+		// specified in punit header.
+		if (!\property_exists($test_options, "skip")) {
+			$result = run_test($test, [
+				"use_php_bin" => $context["use_php_bin"],
+				"use_php_ini" => $context["use_php_ini"],
+				"max_execution_time" => $context["max_execution_time"],
+				"no_newline" => $context["no_newline"]
+			]);
 
-		print_test_result($test, $result, $context);
+			print_test_result($test, $result, $context);
 
-		$test_passed = test_has_passed($test, $result);
+			$test_passed = test_has_passed($test, $result);
 
-		if ($test_passed) {
-			$statistics["tests"]["passed"] += 1;
+			if ($test_passed) {
+				$statistics["tests"]["passed"] += 1;
+			} else {
+				$statistics["tests"]["failed"] += 1;
+			}
+
+			// check continue
+			return !$test_passed && !$context["continue"];
 		} else {
-			$statistics["tests"]["failed"] += 1;
-		}
+			print_test_result($test, "SKIPPED", $context);
 
-		return !$test_passed && !$context["continue"];
+			$statistics["tests"]["skipped"] += 1;
+
+			// always continue after a skipped test
+			return false;
+		}
 	};
 
 	return function($files, $context) use(
@@ -43,7 +55,8 @@ return (function() {
 			"start_time" => tool\millis(),
 			"tests" => [
 				"passed" => 0,
-				"failed" => 0
+				"failed" => 0,
+				"skipped" => 0
 			]
 		];
 

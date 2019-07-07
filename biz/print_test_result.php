@@ -7,8 +7,6 @@ namespace punit;
 // [fail] <description>                duration ms
 
 function print_test_result($test, $result, $context) {
-	$pass = test_has_passed($test, $result);
-
 	$description = "<no description>";
 	if (\strlen($test["description"])) {
 		$description = $test["description"];
@@ -16,6 +14,16 @@ function print_test_result($test, $result, $context) {
 
 	// cut too long description
 	$description = \str_pad($description, 80, " ", \STR_PAD_RIGHT);
+
+	if ($result === "SKIPPED") {
+		$label = "\033[0;33m[skip]";
+
+		echo "$label\033[0m $description\n";
+
+		return;
+	}
+
+	$pass = test_has_passed($test, $result);
 
 	$duration = \str_pad($result["duration"], 5, " ", \STR_PAD_LEFT)." ms";
 	$duration = "\033[0;34m$duration\033[0m";

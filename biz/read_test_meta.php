@@ -27,6 +27,10 @@ function read_test_meta($file) {
 				$_options->comments = true;
 			break;
 
+			case "skip":
+				$_options->skip = true;
+			break;
+
 			default:
 				throw new \Error("Unknown punit option `$option'");
 		}

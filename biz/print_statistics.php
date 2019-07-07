@@ -9,8 +9,9 @@ function print_statistics($statistics, $report_format) {
 
 	if ($report_format === "oneline") {
 		$duration = \number_format($duration / 1E3, 2);
+		$skipped = $statistics["tests"]["skipped"];
 
-		echo "Ran $n_tests tests in $duration seconds\n";
+		echo "Ran $n_tests tests ($skipped skipped) in $duration seconds\n";
 	} else {
 		echo \json_encode([
 			"duration" => $duration,

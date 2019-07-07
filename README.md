@@ -58,3 +58,16 @@ Using PHP version: 7.2.19
 [pass] This is an example test.                                                            34 ms
 Ran 1 tests in 0.04 seconds
 ```
+
+## environment variables
+
+You can set `--continue`, `--no-newline` and `--no-diff` via
+environment variables.
+
+```
+PUNIT_CONTINUE
+PUNIT_NO_NEWLINE
+PUNIT_NO_DIFF
+```
+
+The value of these environment variables is not checked.

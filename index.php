@@ -82,4 +82,24 @@ if ($args["context"]["use_php_bin"] === NULL) {
 	\fwrite(\STDERR, "Using PHP version: ".$php_version[0]."\n");
 }
 
+# check environment variables
+{
+	$environment_variables = [
+		"continue" => NULL,
+		"no_newline" => NULL,
+		"no_diff" => NULL
+	];
+
+	foreach ($environment_variables as $variable => &$value) {
+		$key = "PUNIT_".\strtoupper($variable);
+		$value = punit\tool\read_environment_variable($key);
+
+		if ($value !== NULL) {
+			\fwrite(\STDERR, "ENV $key: Setting --$variable.\n");
+
+			$args["context"][$variable] = true;
+		}
+	}
+}
+
 $main($args["files"], $args["context"]);

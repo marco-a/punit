@@ -53,10 +53,12 @@ punit [options] -- <files>
 ## running example test
 
 ```
-$ ./punit -- ./test
 Using PHP version: 7.2.19
-[pass] This is an example test.                                                            34 ms
-Ran 1 tests in 0.04 seconds
+[skip] <no description>
+[pass] This is an example test with comments.                                              42 ms
+[fail] This test will fail.                                                                35 ms
+[pass] This is an example test.                                                            35 ms
+Ran 3 tests (1 skipped) in 0.12 seconds
 ```
 
 ## environment variables

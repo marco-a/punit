@@ -31,6 +31,9 @@ punit [options] -- <files>
 --no-newline
 	Do not add a line to the unit test's output.
 
+--no-diff
+	Do not show difference between output and expected output.
+
 --report-format <format>
 	Specify output format:
 		- oneline

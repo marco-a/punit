@@ -23,7 +23,7 @@ return (function() {
 			"no_newline" => $context["no_newline"]
 		]);
 
-		print_test_result($test, $result, $context["report_format"]);
+		print_test_result($test, $result, $context);
 
 		$test_passed = test_has_passed($test, $result);
 

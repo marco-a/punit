@@ -6,7 +6,7 @@ namespace punit;
 // [pass] <description>                duration ms
 // [fail] <description>                duration ms
 
-function print_test_result($test, $result, $report_format) {
+function print_test_result($test, $result, $context) {
 	$pass = test_has_passed($test, $result);
 
 	$description = "<no description>";
@@ -22,7 +22,7 @@ function print_test_result($test, $result, $report_format) {
 
 	$label = $pass ? "\033[0;32m[pass]" : "\033[0;31m[fail]";
 
-	if ($report_format === "oneline") {
+	if ($context["report_format"] === "oneline") {
 		echo "$label\033[0m $description $duration\n";
 	} else {
 		echo \json_encode([
@@ -33,7 +33,7 @@ function print_test_result($test, $result, $report_format) {
 		echo "\n";
 	}
 
-	if (!$pass) {
+	if (!$pass && !$context["no_diff"]) {
 		$a = $test["expected_output"];
 		$b = $result["stdout"];
 
